@@ -23,9 +23,8 @@ public class Main {
         tree.getLeftTree().setRightTree(new BinaryTree<>(new Token(2)));
 
         TreeBuilder tb = new TreeBuilder("2*5+3");
-        System.out.println(tb.insertTree(tb.transform()));
 
-        Calculation rechnung = new Calculation(tb.insertTree(tb.transform()));
+        Calculation rechnung = new Calculation(tb.build());
         //Calculation rechnung = new Calculation(tree);
 
         rechnung.getFormel();

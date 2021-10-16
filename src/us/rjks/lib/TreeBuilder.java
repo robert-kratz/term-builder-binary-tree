@@ -38,14 +38,84 @@ public class TreeBuilder {
     }
 
     public BinaryTree<Token> build() {
-        return null;
+        BinaryTree<Token> tmp = new BinaryTree<>();
+        ArrayList<Token> tokens = transform();
+        for (int i = 0; i < transform().size(); i++) {
+            tmp = recBuild(tmp, tokens.get(i));
+        }
+        return tmp;
     }
 
-    private BinaryTree<Token> recBuild(BinaryTree<Token> res) {
-        if(res.getLeftTree() != null) return recBuild(res.getLeftTree());
-        if(res.getRightTree() != null) return recBuild(res.getRightTree());
+    private BinaryTree<Token> recBuild(BinaryTree<Token> res, Token active) {
+        BinaryTree<Token> tree = res;
+        if(tree.getLeftTree() != null) return recBuild(tree.getLeftTree(), active);
+        if(tree.getRightTree() != null) return recBuild(tree.getRightTree(), active);
 
-        return null;
+        Token knot = tree.getContent();
+
+        System.out.println(knot + " " + active);
+
+        if(tree.isEmpty()) {
+
+            System.out.println(0);
+            tree.setContent(active);
+
+        } else if(knot.isNumber() && active.isOperand()) {
+
+            System.out.println(1);
+
+            BinaryTree<Token> tmp = tree;
+            BinaryTree<Token> nt = new BinaryTree<>(knot);
+            nt.setLeftTree(new BinaryTree<>(active));
+
+            if(!tmp.getLeftTree().isEmpty()) nt.getLeftTree().setLeftTree(tmp.getLeftTree());
+            if(!tmp.getRightTree().isEmpty()) nt.getLeftTree().setRightTree(tmp.getRightTree());
+
+            tree = nt;
+
+        } else if(knot.isOperand() && active.isNumber()) {
+            System.out.println(2);
+
+            BinaryTree<Token> tmp = tree;
+
+            BinaryTree<Token> nt = new BinaryTree<>(knot);
+
+            nt.setRightTree(new BinaryTree<>(active));
+
+            if(!tmp.getLeftTree().isEmpty()) nt.getRightTree().setLeftTree(tmp.getLeftTree());
+            if(!tmp.getRightTree().isEmpty()) nt.getRightTree().setRightTree(tmp.getRightTree());
+
+            tree = nt;
+
+        } else if((knot.isLine() && active.isLine()) || (knot.isPoint() && active.isPoint())) {
+
+            System.out.println(3);
+
+            BinaryTree<Token> tmp = new BinaryTree<>(active);
+            tmp.setLeftTree(tree);
+            tree = tmp;
+
+        } else if((knot.isOperand() && knot.isPoint()) && (active.isOperand() && active.isLine())) {
+
+            System.out.println(4);
+
+            BinaryTree<Token> tmp = tree;
+            tree = new BinaryTree<>(active);
+            tree.setLeftTree(tmp);
+
+        } else if((knot.isOperand() && knot.isLine()) && (active.isOperand() && (active.isPoint()))) {
+
+            System.out.println(5);
+
+            BinaryTree<Token> tmp = tree;
+            tree = new BinaryTree<>(active);
+            tree.setRightTree(tmp);
+
+        } else {
+            System.out.println("error while processing: " + active + " with knot " + knot);
+        }
+
+        return tree;
     }
 
     public BinaryTree<Token> insertTree(ArrayList<Token> order) {
