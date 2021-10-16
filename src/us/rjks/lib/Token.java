@@ -13,11 +13,15 @@ public class Token {
         this.number = nub;
         this.operand = ' ';
     }
-    
-    public boolean istOperand() {
+
+    public boolean isOperand() {
         return (operand != ' ');
     }
-    
+
+    public boolean isNumber() {
+        return !isOperand();
+    }
+
     public char getOperand() {
         return operand;
     }
@@ -26,9 +30,17 @@ public class Token {
         return number;
     }
 
+    public boolean isPoint() {
+        return (operand == '*' || operand == '/');
+    }
+
+    public boolean isLine() {
+        return (operand == '+' || operand == '-');
+    }
+
     @Override
     public String toString() {
-        if (istOperand()) return String.valueOf(operand);
+        if (isOperand()) return String.valueOf(operand);
         return String.valueOf(number);
     }
 }
