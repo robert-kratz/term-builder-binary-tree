@@ -34,7 +34,7 @@ public class Input extends JFrame {
     public Input() {
 
         this.setTitle("Binary Calculator by rjks.us");
-        this.setSize(600, 70);
+        this.setSize(600, 80);
         this.setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

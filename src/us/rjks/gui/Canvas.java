@@ -49,7 +49,7 @@ public class Canvas extends JFrame {
 
     private void paintComponent(Graphics2D graphics2D, String text, int x, int y, LP lp) {
         if(lp != null) {
-            graphics2D.drawLine(lp.getX(), lp.getY() + 20, (x-1), (y +20));
+            graphics2D.drawLine(lp.getX(), lp.getY() + 60, (x-1), (y +20));
         }
 
         graphics2D.drawString(text + " ", (x - 2), (y + 45));
