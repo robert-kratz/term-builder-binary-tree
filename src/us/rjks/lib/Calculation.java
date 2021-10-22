@@ -33,7 +33,6 @@ public class Calculation {
 
         if (binaryTree.isEmpty()) return Double.NaN;
 
-
         switch(binaryTree.getContent().getOperand()) {
             case '*': {
                 return l * r;

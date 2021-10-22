@@ -29,10 +29,12 @@ public class TreeBuilder {
         for (int i = 0; i < array.length; i++) {
             Token token;
             try {
+                System.out.println(array[i].equalsIgnoreCase("+") || array[i].equalsIgnoreCase("-") || array[i].equalsIgnoreCase("*") || array[i].equalsIgnoreCase("/"));
                 if(array[i].equalsIgnoreCase("+") || array[i].equalsIgnoreCase("-") || array[i].equalsIgnoreCase("*") || array[i].equalsIgnoreCase("/")) {
                     token = new Token(formel.charAt(i));
                 } else {
-                    token = new Token(Double.valueOf(array[i]));
+                    String tmp = processFollowing(array, i);
+                    token = new Token(Double.valueOf(tmp));
                 }
             } catch (Exception exception) {
                 return null; //Invalid input due of error
@@ -41,6 +43,18 @@ public class TreeBuilder {
             tokens.add(token);
         }
         return tokens;
+    }
+
+    private String processFollowing(String[] array, int start) {
+        String res = "";
+        for (int a = start; a < array.length; a++) {
+            if(array[a] != null && !array[a].equalsIgnoreCase("+") && !array[a].equalsIgnoreCase("-") && !array[a].equalsIgnoreCase("*") && !array[a].equalsIgnoreCase("/")) {
+                res = res + array[a];
+            } else {
+                return res;
+            }
+        }
+        return res;
     }
 
     private void recBuild(BinaryTree<Token> res, Token active) {
