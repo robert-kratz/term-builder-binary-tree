@@ -36,32 +36,19 @@ public class Calculation {
 
         switch(binaryTree.getContent().getOperand()) {
             case '*': {
-                System.out.println(5);
-
                 return l * r;
             }
             case '/': {
-                System.out.println(6);
-
                 if (r != 0.0) return l / r;
                 else return Double.NaN;
             }
             case '+': {
-                System.out.println(7);
-
-
                 return l + r;
             }
             case '-': {
-
-                System.out.println(8);
-
                 return l - r;
             }
             default: {
-                System.out.println(9);
-
-
                 return Double.NaN;
             }
         }
