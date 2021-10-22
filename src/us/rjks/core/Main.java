@@ -1,9 +1,7 @@
 package us.rjks.core;
 
-import us.rjks.lib.BinaryTree;
-import us.rjks.lib.Calculation;
-import us.rjks.lib.Token;
-import us.rjks.lib.TreeBuilder;
+import us.rjks.gui.Canvas;
+import us.rjks.gui.Input;
 
 /**
  * Copyright Ⓒ Robert J. Kratz 2021
@@ -14,20 +12,8 @@ import us.rjks.lib.TreeBuilder;
 public class Main {
 
     public static void main(String[] args) {
-        BinaryTree<Token> tree = new BinaryTree<>();
-
-        tree.setContent(new Token('+'));
-        tree.setRightTree(new BinaryTree<>(new Token(3)));
-        tree.setLeftTree(new BinaryTree<>(new Token('*')));
-        tree.getLeftTree().setLeftTree(new BinaryTree<>(new Token(5)));
-        tree.getLeftTree().setRightTree(new BinaryTree<>(new Token(2)));
-
-        TreeBuilder tb = new TreeBuilder("2*5+3");
-
-        Calculation rechnung = new Calculation(tb.build());
-        //Calculation rechnung = new Calculation(tree);
-
-        rechnung.getFormel();
+        Input input = new Input();
+        input.setVisible(true);
     }
 
 }
